@@ -105,6 +105,9 @@ module.exports.verifyUser = (req, res, next) => {
           return unauthorizedError(res);
         }
       })
+      .catch((err)=>{
+        return res.status(422).send({errors: [{title: "Db Error", detail: err.message}]});
+      })
     });
   } else {
     return unauthorizedError(res);
