@@ -22,7 +22,7 @@ module.exports.login = (req, res) => {
       throw new Error("Invalid email or password");
     }
     username = results[0].user_name;
-    id = results.id;
+    id = results[0].id;
     return bcrypt.compare(password, results[0].password);
   })
   .then((isCorrectPassword) => {
