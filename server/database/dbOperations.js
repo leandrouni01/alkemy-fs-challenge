@@ -62,7 +62,28 @@ exports.findOne = (model,data) => {
 }
 
 exports.update = (model, data) => {
+  const { table, keys } = model;
 
+  const keysToChange = `${keys.map((key) => `${key.key} = ?`).join(", ")}`;
+  const conditions = `${data.conditions.map(cond => `${cond.key} = ?`).join(', ')}`;
+  const query = `UPDATE ${table} SET ${keysToChange} WHERE ${conditions}`;
+
+  const updateData = keys.map(key => data[key.key]);
+  const conditionsData = data.conditions.map((cond) => data[cond.key]);
+
+  return new Promise((resolve, reject) => {
+    pool.getConnection(function(err, connection) {
+      if (err) reject(err);
+     
+      connection.query(query,[...updateData, ...conditionsData], (error, results) => {
+        connection.release();
+        
+        if (error) return reject(error);
+        results = JSON.parse(JSON.stringify(results));
+        resolve(results);
+      });
+    });
+  })
 }
 
 exports.delete = (model, data) => {
