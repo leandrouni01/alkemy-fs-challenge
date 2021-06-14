@@ -5,7 +5,7 @@ const PORT = process.env.PORT || 3001;
 
 //Midlewares
 app.use(express.json());
-app.use(express.urlencoded());
+app.use(express.urlencoded({extended: true}));
 
 //Routes
 const userRoutes = require('./routes/users');
