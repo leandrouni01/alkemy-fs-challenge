@@ -37,6 +37,7 @@ module.exports.register = (req, res) => {
     jwt.sign({
       sub: id,
       username,
+      email,
     },config.JWT_SECRET,
     (err, encoded) => {
       if(err) {
