@@ -41,8 +41,24 @@ exports.find = (model) => {
   })
 }
 
-exports.findOne = (model, data) => {
+exports.findOne = (model,data) => {
+  const { table, keys} = model;
+  const modelkeys = `${keys.map((key) => `${key.table}.${key.key} ${key.alias ? "AS "+ key.alias : ""}`)}`;
+  const query =  `SELECT ${modelkeys} FROM ${table} WHERE ${table}.id = ?`;
 
+  return new Promise((resolve, reject) => {
+    pool.getConnection(function(err, connection) {
+      if (err) reject(err);
+     
+      connection.query(query,[data.id], (error, results) => {
+        connection.release();
+        
+        if (error) return reject(error);
+        results = JSON.parse(JSON.stringify(results));
+        resolve(results);
+      });
+    });
+  })
 }
 
 exports.update = (model, data) => {
