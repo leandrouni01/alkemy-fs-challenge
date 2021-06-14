@@ -9,7 +9,7 @@ exports.insert = (model, data) => {
 
   return new Promise((resolve, reject) => {
     pool.getConnection(function(err, connection) {
-      if (err) reject(err);
+      if (err) return reject(err);
      
       connection.query(query,insertData, (error, result) => {
         connection.release();
@@ -28,7 +28,7 @@ exports.find = (model) => {
 
   return new Promise((resolve, reject) => {
     pool.getConnection(function(err, connection) {
-      if (err) reject(err);
+      if (err) return reject(err);
      
       connection.query(query, (error, results) => {
         connection.release();
@@ -51,7 +51,7 @@ exports.findBy = (model, data) => {
 
   return new Promise((resolve, reject) => {
     pool.getConnection(function(err, connection) {
-      if (err) reject(err);
+      if (err) return reject(err);
      
       connection.query(query,conditionsData, (error, results) => {
         connection.release();
@@ -71,7 +71,7 @@ exports.findOne = (model,data) => {
 
   return new Promise((resolve, reject) => {
     pool.getConnection(function(err, connection) {
-      if (err) reject(err);
+      if (err) return reject(err);
      
       connection.query(query,[data.id], (error, results) => {
         connection.release();
@@ -96,7 +96,7 @@ exports.update = (model, data) => {
 
   return new Promise((resolve, reject) => {
     pool.getConnection(function(err, connection) {
-      if (err) reject(err);
+      if (err) return reject(err);
      
       connection.query(query,[...updateData, ...conditionsData], (error, results) => {
         connection.release();
@@ -117,7 +117,7 @@ exports.delete = (model, data) => {
 
   return new Promise((resolve, reject) => {
     pool.getConnection(function(err, connection) {
-      if (err) reject(err);
+      if (err) return reject(err);
      
       connection.query(query, conditionsData, (error, results) => {
         connection.release();
