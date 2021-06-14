@@ -86,3 +86,31 @@ module.exports.register = (req, res) => {
     return res.status(422).send({ errors: [{ title: "DB Error", detail: err.message }] });
   })
 };
+
+
+module.exports.verifyUser = (req, res, next) => {
+  const token = req.headers.authorization
+  if (token) {
+    jwt.verify(token.split(" ")[1], config.JWT_SECRET, (err, decoded) => {
+      if(err) {
+        return unauthorizedError(res);
+      }
+
+      dbOperations.findOne(userModel.find, {id: decoded.sub})
+      .then(result => {
+        if(result.length > 0) {
+          req.locals.user = result[0];
+          next();
+        } else {
+          return unauthorizedError(res);
+        }
+      })
+    });
+  } else {
+    return unauthorizedError(res);
+  }
+}
+
+function unauthorizedError(res) {
+  return res.status(402).send({errors: [{title: "Unauthorized", detail: "You need to be loged in to access this section"}]});
+}
