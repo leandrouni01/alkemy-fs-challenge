@@ -2,7 +2,7 @@ const operationModel = require('../models/Operation');
 const dbOperations = require('../database/dbOperations');
 
 
-module.exports.getOperation = (req,res) =>{
+module.exports.getOperations = (req,res) =>{
 
 }
 
