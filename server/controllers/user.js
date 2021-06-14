@@ -7,7 +7,43 @@ const config = require('../config/dev');
 
 
 module.exports.login = (req, res) => {
+  const { password, email } = req.body;
 
+  if (!password || !email) {
+    return res.status(422).send({ errors: [{ title: "Missing Data", detail: "Email or password are missing" }] })
+  }
+
+  let username;
+  let id;
+
+  dbOperations.findBy(userModel.find, {email, conditions: [{key: "email"}]})
+  .then((results) => {
+    if(results.length < 1) {
+      throw new Error("Invalid email or password");
+    }
+    username = results[0].user_name;
+    id = results.id;
+    return bcrypt.compare(password, results[0].password);
+  })
+  .then((isCorrectPassword) => {
+    if(!isCorrectPassword) {
+      throw new Error("Invalid email or password");
+    }
+
+    jwt.sign({
+      sub: id,
+      username,
+      email
+    },config.JWT_SECRET,
+    (err, encoded) => {
+      if(err) {
+        throw new Error(err.message)
+      }
+      return res.status(200).send({token: encoded});
+    })
+  }).catch((err)=> {
+    return res.status(422).send({ errors: [{ title: "DB Error", detail: err.message }] });
+  })
 };
 
 module.exports.register = (req, res) => {
