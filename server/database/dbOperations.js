@@ -21,8 +21,24 @@ exports.insert = (model, data) => {
   })
 }
 
-exports.find = (model, data) => {
+exports.find = (model) => {
+  const { table, keys} = model;
+  const modelkeys = `${keys.map((key) => `${key.table}.${key.key} ${key.alias ? "AS "+ key.alias : ""}`)}`;
+  const query =  `SELECT ${modelkeys} FROM ${table}`;
 
+  return new Promise((resolve, reject) => {
+    pool.getConnection(function(err, connection) {
+      if (err) reject(err);
+     
+      connection.query(query, (error, results) => {
+        connection.release();
+        
+        if (error) return reject(error);
+        results = JSON.parse(JSON.stringify(results));
+        resolve(results);
+      });
+    });
+  })
 }
 
 exports.findOne = (model, data) => {
