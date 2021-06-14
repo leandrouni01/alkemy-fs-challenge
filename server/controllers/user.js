@@ -99,7 +99,7 @@ module.exports.verifyUser = (req, res, next) => {
       dbOperations.findOne(userModel.find, {id: decoded.sub})
       .then(result => {
         if(result.length > 0) {
-          req.locals.user = result[0];
+          res.locals.user = result[0];
           next();
         } else {
           return unauthorizedError(res);
