@@ -87,6 +87,23 @@ exports.update = (model, data) => {
 }
 
 exports.delete = (model, data) => {
+  const { table } = model;
+  const conditions = `${data.conditions.map(cond => `${cond.key} = ?`).join(', ')}`;
+  const query = `DELETE FROM ${table} WHERE ${conditions}`;
+  const conditionsData = data.conditions.map((cond) => data[cond.key]);
 
+  return new Promise((resolve, reject) => {
+    pool.getConnection(function(err, connection) {
+      if (err) reject(err);
+     
+      connection.query(query, conditionsData, (error, results) => {
+        connection.release();
+        
+        if (error) return reject(error);
+        results = JSON.parse(JSON.stringify(results));
+        resolve(results);
+      });
+    });
+  })
 }
 
