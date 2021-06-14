@@ -41,6 +41,29 @@ exports.find = (model) => {
   })
 }
 
+exports.findBy = (model, data) => {
+  const { table, keys} = model;
+  const modelkeys = `${keys.map((key) => `${key.table}.${key.key} ${key.alias ? "AS "+ key.alias : ""}`)}`;
+  const conditions = `${data.conditions.map(cond => `${cond.key} = ?`).join(', ')}`;
+  const query =  `SELECT ${modelkeys} FROM ${table} WHERE ${conditions}`;
+
+  const conditionsData = data.conditions.map((cond) => data[cond.key]);
+
+  return new Promise((resolve, reject) => {
+    pool.getConnection(function(err, connection) {
+      if (err) reject(err);
+     
+      connection.query(query,conditionsData, (error, results) => {
+        connection.release();
+        
+        if (error) return reject(error);
+        results = JSON.parse(JSON.stringify(results));
+        resolve(results);
+      });
+    });
+  })
+}
+
 exports.findOne = (model,data) => {
   const { table, keys} = model;
   const modelkeys = `${keys.map((key) => `${key.table}.${key.key} ${key.alias ? "AS "+ key.alias : ""}`)}`;
