@@ -29,7 +29,22 @@ module.exports.getOperationById = (req,res) =>{
 }
 
 module.exports.createOperation = (req,res) =>{
+  const {concept, amount, date, type, category} = req.body;
 
+  if(!concept || !amount || !date || !type || !category) {
+    return res.status(422).send({errors: [{title: "Missing parameters", detail: "Some parameters are missing"}]});
+  }
+  
+  let data = {concept, amount, date, type, category, fk_user: res.locals.user.id}
+
+  dbOperations.insert(operationModel.insert, data)
+  .then((id)=> {
+    data.id = id;
+    res.status(200).send(data);
+  })
+  .catch((err)=> {
+    res.status(422).send({errors: [{title: "Db Error", detail: err.message}]});
+  });
 }
 
 module.exports.updateOperation = (req,res) =>{
