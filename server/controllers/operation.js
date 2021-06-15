@@ -15,7 +15,7 @@ module.exports.getOperations = (req,res) =>{
 
 module.exports.getOperationById = (req,res) =>{
   const userId = res.locals.user.id;
-  const { operationId } = req.params
+  const { operationId } = req.params;
   dbOperations.findOne(operationModel.find, {id: operationId})
   .then((results) => {
     if(results.length > 0 && userId != results[0].fk_user) {
@@ -48,7 +48,27 @@ module.exports.createOperation = (req,res) =>{
 }
 
 module.exports.updateOperation = (req,res) =>{
+  const {concept, amount, date, category} = req.body;
+  const  id  = req.params.operationId;
+  if(!concept || !amount || !date || !category) {
+    return res.status(422).send({errors: [{title: "Missing parameters", detail: "Some parameters are missing"}]});
+  }
 
+  const data = {concept, amount, date, category, id};
+
+  dbOperations.findOne(operationModel.find, {id})
+  .then((result)=> {
+    if (result.length > 0 && result[0].fk_user != res.locals.user.id) {
+      throw new Error("Current user does not have access to requested operation");
+    }
+    return dbOperations.update(operationModel.update, {...data, conditions: [{key: "id"}]});
+  })
+  .then((result)=> {
+    res.status(200).send(data);
+  })
+  .catch((err)=> {
+    return res.status(422).send({errors: [{title: "Db Error", detail: err.message}]});
+  })
 }
 
 module.exports.deleteOperation = (req,res) =>{
