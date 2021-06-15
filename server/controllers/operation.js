@@ -72,5 +72,19 @@ module.exports.updateOperation = (req,res) =>{
 }
 
 module.exports.deleteOperation = (req,res) =>{
+  const  id  = req.params.operationId;
 
+  dbOperations.findOne(operationModel.find, {id})
+  .then((result)=> {
+    if (result.length > 0 && result[0].fk_user != res.locals.user.id) {
+      throw new Error("Current user does not have access to requested operation");
+    }
+    return dbOperations.delete(operationModel.delete, {id, conditions: [{key: "id"}]});
+  })
+  .then((result)=> {
+    res.status(200).send(result);
+  })
+  .catch((err)=> {
+    return res.status(422).send({errors: [{title: "Db Error", detail: err.message}]});
+  })
 }
