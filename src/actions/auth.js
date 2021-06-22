@@ -13,7 +13,7 @@ export const loginUser = (loginData) => {
   return pbAxios
     .post('/users/login', loginData)
     .then(res => res.data.token)
-    .catch(error => Promise.Promise.reject(extractApiErrors(error)))
+    .catch(error => Promise.reject(extractApiErrors(error)))
 }
 
 export const userAuthenticated = (decodedToken) => {
