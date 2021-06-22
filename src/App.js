@@ -3,12 +3,19 @@ import Routes from './Routes';
 
 import Header from 'components/shared/Header';
 
+import  { Provider } from 'react-redux';
+import { initStore } from './store';
+
+const store = initStore();
+
 function App() {
   return (
-    <Router>
-      <Header />
-      <Routes />
-    </Router>
+    <Provider store={store}>
+      <Router>
+        <Header />
+        <Routes />
+      </Router>
+    </Provider>
   );
 }
 
