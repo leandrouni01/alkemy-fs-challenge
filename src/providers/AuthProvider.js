@@ -9,6 +9,13 @@ const AuthContext = createContext(null);
 
 const AuthBaseProvider = ({children, dispatch}) => {
 
+  const checkAuthState = () => {
+    const token = isAuthenticated()
+    if (token) {
+      dispatch(userAuthenticated(token))
+    }
+  }
+
   const isAuthenticated = () => {
     const token = getToken();
     return token ? decodeToken(token) : false;
@@ -46,6 +53,7 @@ const AuthBaseProvider = ({children, dispatch}) => {
   const authApi = {
     signIn,
     signOut,
+    checkAuthState,
     isAuthenticated
   }
 
