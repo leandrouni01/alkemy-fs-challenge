@@ -27,7 +27,6 @@ class Login extends React.Component {
   render() {
 
     const { errors, shouldRedirect } = this.state;
-    console.log(errors);
     if(shouldRedirect){
       return <Redirect to={{pathname: '/'}} />
     }
