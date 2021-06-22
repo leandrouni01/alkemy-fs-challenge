@@ -23,17 +23,17 @@ class Home extends React.Component {
       )
     }
 
-    if (operations.status === "FETCHING") {
+    if (operations.opStatus === "FETCHING") {
       return (
         <div className="row">
           <div className="col-12">
-            <h1>Loading</h1>
+            <h1>Loading...</h1>
           </div>
         </div>
       )
     }
 
-    if (operations.status === "ERROR") {
+    if (operations.opStatus === "ERROR") {
       return (
         <div className="row">
           <div className="col-12">
