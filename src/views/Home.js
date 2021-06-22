@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { fetchOperations } from 'actions';
 import AccountingBalance from 'components/home/AccountingBalance';
+import OperationsTable from 'components/tables/OperationsTable';
 
 class Home extends React.Component {
 
@@ -49,12 +50,12 @@ class Home extends React.Component {
           <div className="col-12">
             <div className="row">
               <div className="col-8 mx-auto">
-              <AccountingBalance className="mx-auto" operations={operations.operations}/>
+                <AccountingBalance className="mx-auto" operations={operations.operations}/>
               </div>
             </div>
             <div className="row">
               <div className="col-12">
-                last ten operations
+                <OperationsTable operations={operations.operations.slice(-10)} manage={false} />
               </div>
             </div>
           </div>
