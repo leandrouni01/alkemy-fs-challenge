@@ -12,7 +12,7 @@ export const registerUser = (registerData) => {
 export const loginUser = (loginData) => {
   return pbAxios
     .post('/users/login', loginData)
-    .then(res => res.data)
+    .then(res => res.data.token)
     .catch(error => Promise.Promise.reject(extractApiErrors(error)))
 }
 
