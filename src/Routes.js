@@ -1,19 +1,21 @@
 import React from 'react';
-import { Route, Switch } from 'react-router-dom';
+import { Switch } from 'react-router-dom';
 
 import Register from 'views/Register';
 import Login from 'views/Login';
+import AuthRoute from 'components/auth/AuthRoute';
+import GuestRoute from 'components/auth/GuestRoute';
 
 const Routes = () => {
   return (
     <div className="container">
       <Switch>
-        <Route path="/register">
+        <GuestRoute path="/register">
           <Register />
-        </Route>
-        <Route path="/login">
+        </GuestRoute>
+        <GuestRoute path="/login">
           <Login />
-        </Route>
+        </GuestRoute>
       </Switch>
     </div>
   )
