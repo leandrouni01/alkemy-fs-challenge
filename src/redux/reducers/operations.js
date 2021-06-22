@@ -24,8 +24,8 @@ const initOperationReducer = () => {
       case "REQUEST_DATA_COMPLETE":
         return action.items;
       case "DELETE_ITEM": 
-        const deleteIndex = state.findIndex(i => i.id == action.id)
-        return state.filter((i, index) => deleteIndex != index);
+        const deleteIndex = state.findIndex(i => i.id === action.id)
+        return state.filter((i, index) => deleteIndex !== index);
       default:
         return state;
     }
