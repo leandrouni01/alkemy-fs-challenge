@@ -6,7 +6,7 @@ export const fetchOperations = () => dispatch => {
   dispatch({type: "REQUEST_DATA"});
   return pbAxios.get('/operations')
   .then((res)=> {
-    dispatch({type: "REQUEST_DATA_COMPLETE", items});
+    dispatch({type: "REQUEST_DATA_COMPLETE", items: res.data});
   })
   .catch((err)=> {
     dispatch({type: "ERROR_OCURRED",errors: extractApiErrors(err)});
