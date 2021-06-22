@@ -9,16 +9,33 @@ import { AuthProvider } from "providers/AuthProvider";
 
 const store = initStore();
 
+const Providers = ({children}) => 
+  <Provider store={store}>
+    <AuthProvider>
+        {children}
+    </AuthProvider>
+  </Provider>
+
+const PBApp = () => {
+  const authService = useAuth();
+
+  useEffect(() => {
+    authService.checkAuthState();
+  }, [authService])
+
+  return (
+    <Router>
+      <Header logout={authService.signOut} />
+      <Routes />
+    </Router>
+  )
+}
+
 function App() {
   return (
-    <Provider store={store}>
-      <AuthProvider>
-        <Router>
-          <Header />
-          <Routes />
-        </Router>
-      </AuthProvider>
-    </Provider>
+    <Providers >
+      <PBApp />
+    </Providers>
   );
 }
 
