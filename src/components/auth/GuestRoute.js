@@ -1,7 +1,7 @@
 import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
 import { useAuth } from 'providers/AuthProvider';
-
+import { connect } from 'react-redux';
 
 const GuestRoute = ({children, ...rest}) => {
   const authService = useAuth();
@@ -13,4 +13,6 @@ const GuestRoute = ({children, ...rest}) => {
   )
 }
 
-export default GuestRoute;
+const mapStateToProps = ({auth}) => ( { auth } );
+
+export default connect(mapStateToProps)(GuestRoute);

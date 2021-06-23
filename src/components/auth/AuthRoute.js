@@ -1,6 +1,7 @@
 import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
 import { useAuth } from 'providers/AuthProvider';
+import { connect } from 'react-redux';
 
 
 const AuthRoute = ({children, ...rest}) => {
@@ -13,4 +14,6 @@ const AuthRoute = ({children, ...rest}) => {
   )
 }
 
-export default AuthRoute;
+const mapStateToProps = ({auth}) => ( { auth } );
+
+export default connect(mapStateToProps)(AuthRoute);
