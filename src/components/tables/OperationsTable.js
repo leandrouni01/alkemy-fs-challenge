@@ -30,7 +30,7 @@ class OperationsTable extends React.Component {
                 <td>{op.type}</td>
                 {manage &&
                   <td>
-                    <button onClick={onRemove}>Remove</button>
+                    <button onClick={onRemove(op.id)}>Delete</button>
                     <Link to={`/operations/${op.id}/edit`}>Edit</Link>
                   </td>
                 }
