@@ -22,3 +22,9 @@ export const deleteOperation = (id) => dispatch => {
     dispatch({type: "ERROR_OCURRED",errors: extractApiErrors(err)});
   })
 }
+
+export const createOperation = operationData =>  {
+  return pbAxios.post('/operations', operationData)
+  .then(res => res.data)
+  .catch(error => Promise.reject(extractApiErrors(error)));
+}
