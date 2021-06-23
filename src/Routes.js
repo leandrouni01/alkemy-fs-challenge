@@ -6,6 +6,7 @@ import Login from 'views/Login';
 import Home from 'views/Home';
 import AuthRoute from 'components/auth/AuthRoute';
 import GuestRoute from 'components/auth/GuestRoute';
+import ManageOperations from 'views/ManageOperations';
 
 const Routes = () => {
   return (
@@ -20,6 +21,9 @@ const Routes = () => {
         <GuestRoute path="/login">
           <Login />
         </GuestRoute>
+        <AuthRoute path="/operations">
+          <ManageOperations />
+        </AuthRoute>
       </Switch>
     </div>
   )
