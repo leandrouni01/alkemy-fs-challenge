@@ -88,3 +88,26 @@ module.exports.deleteOperation = (req,res) =>{
     return res.status(422).send({errors: [{title: "Db Error", detail: err.message}]});
   })
 }
+
+module.exports.verifyOwner = (req,res) =>{
+  const  id  = req.params.operationId;
+
+  dbOperations.findOne(operationModel.find, {id})
+  .then((result)=> {
+    if (result.length <= 0) {
+      const err =  new Error("Operation Not Found");
+      err.statusCode = 404;
+      throw err;
+    }
+
+    if (result[0].fk_user != res.locals.user.id) {
+      const err =  new Error("Current user does not have access to requested operation");
+      err.statusCode = 422;
+      throw err;
+    }
+    return res.status(200).send({isOwner: true});
+  })
+  .catch((err)=> {
+    return res.status(err.statusCode).send({errors: [{title: "Db Error", detail: err.message}]});
+  })
+}
