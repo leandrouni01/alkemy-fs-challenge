@@ -3,6 +3,10 @@ export const extractApiErrors = (err) => {
     return err.response.data.errors
   }
 
+  if (err && err.response && err.response.data) {
+    return err.response.data
+  }
+
   return err;
 }
 
