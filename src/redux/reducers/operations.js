@@ -19,7 +19,6 @@ const initOperationReducer = () => {
   const operations = (state = [], action) => {
     switch(action.type) {
       case "REQUEST_DATA":
-      case "ERROR_OCURRED":
         return [];
       case "REQUEST_DATA_COMPLETE":
         return action.items;
