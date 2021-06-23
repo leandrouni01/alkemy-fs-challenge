@@ -22,7 +22,7 @@ const AuthBaseProvider = ({children, dispatch}) => {
   }
 
   const getToken = () => {
-    return localStorage.getItem('bwm_token');
+    return localStorage.getItem('pb_token');
   }
 
   const decodeToken = token => {
@@ -30,20 +30,20 @@ const AuthBaseProvider = ({children, dispatch}) => {
   }
 
   const signOut = () => {
-    localStorage.removeItem('bwm_token');
+    localStorage.removeItem('pb_token');
     dispatch({type: 'USER_SIGNED_OUT'});
   }
 
   const signIn = (token, loginData) => {
     if(token) {
-      localStorage.setItem('bwm_token', token);
+      localStorage.setItem('pb_token', token);
       const decodedToken = decodeToken(token);
       dispatch(userAuthenticated(decodedToken))
       return token;
     }
     return loginUser(loginData)
       .then(token => {
-        localStorage.setItem('bwm_token', token);
+        localStorage.setItem('pb_token', token);
         const decodedToken = decodeToken(token);
         dispatch(userAuthenticated(decodedToken))
         return token;

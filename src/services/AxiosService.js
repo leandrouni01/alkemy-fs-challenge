@@ -15,7 +15,7 @@ class AxiosService {
     });
 
     this.axiosInstance.interceptors.request.use((config) => {
-      const token = localStorage.getItem('bwm_token');
+      const token = localStorage.getItem('pb_token');
 
       if (token) {
         config.headers.Authorization = `Bearer ${token}`;
