@@ -42,7 +42,7 @@ class ManageOperations extends React.Component {
     const { showModal } = this.state;
 
     return (
-      <div>
+      <>
         <div className="row">
           <h1 className="col-md-8 col-sm-6">Manage Operations</h1>
           <div className="col-md-4 col-sm-6">
@@ -62,10 +62,10 @@ class ManageOperations extends React.Component {
         </div>
         <ConfirmationModal 
         open={showModal} 
-        message="Are you sure you to delete this operation" 
+        message="Are you sure you want to delete this operation" 
         onConfirmation={this.handleConfirmedDelete}
         onClose={this.handleCancel}/>
-      </div>
+      </>
     )
   }
 }
