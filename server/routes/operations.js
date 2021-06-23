@@ -7,12 +7,14 @@ const {
   getOperationById,
   createOperation,
   updateOperation,
-  deleteOperation
+  deleteOperation,
+  verifyOwner
 } = require('../controllers/operation');
 
 router.use(verifyUser);
 
 router.get('', getOperations);
+router.get('/:operationId/verify', verifyOwner);
 router.get('/:operationId', getOperationById);
 router.post('', createOperation);
 router.patch('/:operationId', updateOperation);
