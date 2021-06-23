@@ -7,6 +7,7 @@ import Home from 'views/Home';
 import AuthRoute from 'components/auth/AuthRoute';
 import GuestRoute from 'components/auth/GuestRoute';
 import ManageOperations from 'views/ManageOperations';
+import CreateOperation from 'views/CreateOperation';
 
 const Routes = () => {
   return (
@@ -21,6 +22,9 @@ const Routes = () => {
         <GuestRoute path="/login">
           <Login />
         </GuestRoute>
+        <AuthRoute path="/operations/create">
+          <CreateOperation />
+        </AuthRoute>
         <AuthRoute path="/operations">
           <ManageOperations />
         </AuthRoute>
