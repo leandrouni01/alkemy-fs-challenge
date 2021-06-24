@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import { Redirect } from 'react-router';
 import { verifyOperationOwner, fetchCategories } from 'actions';
+import FormNav from 'components/shared/FormNav';
 import OperationForm from 'components/forms/OperationForm';
 
 
@@ -66,6 +67,7 @@ class EditOperation extends React.Component {
     const { categories, message } = this.state;
     return (
       <>
+      <FormNav />
       <div className="row">
         <div className="col-12">
           <h1 className="content-title">Edit operation</h1>

@@ -1,6 +1,7 @@
 import React from 'react';
 import OperationForm from 'components/forms/OperationForm';
 import { createOperation, fetchCategories } from 'actions';
+import FormNav from 'components/shared/FormNav';
 
 
 class CreateOperation extends React.Component {
@@ -47,7 +48,7 @@ class CreateOperation extends React.Component {
 
     return (
       <>
-
+      <FormNav />
       <div className="row">
         <div className="col-12">
           <h1 className="content-title">Create new operation</h1>
