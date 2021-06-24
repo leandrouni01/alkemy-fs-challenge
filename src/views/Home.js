@@ -38,7 +38,9 @@ class Home extends React.Component {
         <div className="row">
           <div className="col-12">
             {
-              operations.errors.map(err => <div className="alert alert-danger" key={err.detail}>{err.detail}</div>)
+              operations.errors.map ? 
+              operations.errors.map(err => <div className="alert alert-danger" key={err.detail}>{err.detail}</div>) :
+              <div className="alert alert-danger">{operations.errors}</div>
             }
           </div>
         </div>
