@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { cleanDate } from 'helpers/functions';
 
 class OperationsTable extends React.Component {
 
@@ -25,7 +26,7 @@ class OperationsTable extends React.Component {
               return (<tr key={op.id}>
                 <td>{op.concept}</td>
                 <td>{op.amount}</td>
-                <td>{op.date}</td>
+                <td>{cleanDate(op.date)}</td>
                 <td>{op.category}</td>
                 <td>{op.type}</td>
                 {manage &&

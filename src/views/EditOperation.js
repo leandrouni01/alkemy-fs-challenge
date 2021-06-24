@@ -6,6 +6,7 @@ import { Redirect } from 'react-router';
 import { verifyOperationOwner, fetchCategories } from 'actions';
 import FormNav from 'components/shared/FormNav';
 import OperationForm from 'components/forms/OperationForm';
+import { cleanDate } from 'helpers/functions';
 
 
 const withUserCheck = Component => props => {
@@ -64,6 +65,7 @@ class EditOperation extends React.Component {
   render() {
 
     const {errors, operation, opStatus} = this.props.operation;
+    operation.date = cleanDate(operation.date);
     const { categories, message } = this.state;
     return (
       <>
