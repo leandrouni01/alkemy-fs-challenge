@@ -23,20 +23,26 @@ export const deleteOperation = (id) => dispatch => {
   })
 }
 
-export const createOperation = operationData =>  {
+export const createOperation = (operationData, callback) =>  {
   return pbAxios.post('/operations', operationData)
-  .then(res => res.data)
-  .catch(error => Promise.reject(extractApiErrors(error)));
+  .then(res =>  res.data)
+  .catch(error => Promise.reject(extractApiErrors(error)))
+  .finally(()=> {
+    if(callback && typeof callback == "function") callback();
+  });
 }
 
-export const editOperation = operationData => dispatch => {
+export const editOperation = (operationData, callback) => dispatch => {
   dispatch({type: "UPDATE_OPERATION"})
-  return pbAxios.patch('/operations/' + operationData.id, operationData)
+  pbAxios.patch('/operations/' + operationData.id, operationData)
   .then((res) => {
     dispatch({type: "UPDATE_OPERATION_COMPLETE", item: res.data});
   })
   .catch((error) => {
     dispatch({type: "ERROR_OCURRED",errors: extractApiErrors(error)});
+  })
+  .finally(()=> {
+    if(callback && typeof callback == "function") callback();
   })
 }
 
