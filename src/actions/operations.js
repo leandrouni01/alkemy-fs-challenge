@@ -28,3 +28,15 @@ export const createOperation = operationData =>  {
   .then(res => res.data)
   .catch(error => Promise.reject(extractApiErrors(error)));
 }
+
+export const editOperation = operationData => dispatch => {
+  dispatch({type: "UPDATE_OPERATION"})
+  return pbAxios.patch('/operations/' + operationData.id, operationData)
+  .then((res) => {
+    dispatch({type: "UPDATE_OPERATION_COMPLETE", item: res.data});
+  })
+  .catch((error) => {
+    dispatch({type: "ERROR_OCURRED",errors: extractApiErrors(error)});
+  })
+}
+
