@@ -1,3 +1,4 @@
+import { capitalize } from 'helpers/functions';
 import React from 'react';
 
 const ExchangeableSelect = ({selectOptions, id, type, exchange, onExchange, onReturn, name, register, registerOptions}) => {
@@ -5,8 +6,14 @@ const ExchangeableSelect = ({selectOptions, id, type, exchange, onExchange, onRe
   if(exchange) {
     return (
       <>
-      <input className="form-control" type={type} id={id} {...register(name, registerOptions)} /> 
-      <button type="button" onClick={onReturn}>Return</button>
+      <div className="input-group">
+        <input className="form-control" type={type} id={id} {...register(name, registerOptions)} />
+        <div className="input-group-append">
+          <button type="button" className="btn btn-primary" onClick={onReturn}>
+            <i className="bi bi-box-arrow-left"></i>
+          </button>
+        </div>
+      </div>
       </>
     )
   }
@@ -22,7 +29,7 @@ const ExchangeableSelect = ({selectOptions, id, type, exchange, onExchange, onRe
       {
         selectOptions.map( opt => <option key={opt.value} value={opt.value}>{opt.description}</option> )
       }
-      <option key="other" value="other">Other</option>
+      <option key="other" value="other">New {capitalize(name)}</option>
     </select>
   )
 }
