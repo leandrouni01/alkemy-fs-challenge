@@ -10,17 +10,6 @@ const LoginForm = ({ onSubmit }) => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <div className="form-group" >
-        <label htmlFor="username">Username</label>
-        <input
-          type="text"
-          className="form-control"
-          id="username"
-          {...register("username",{ required: "Username is required" })} />
-        <ErrorMessage as={<Error />} name="username" errors={errors}>
-          {message => <p> {message} </p>}
-        </ErrorMessage>
-      </div>
       <div className="form-group">
         <label htmlFor="email">Email</label>
         <input
