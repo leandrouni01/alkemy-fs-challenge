@@ -56,6 +56,7 @@ class EditOperation extends React.Component {
     return (operationData) => {
       const { id } = this.props.match.params;
       this.props.dispatch(editOperation({...operationData, id}, this.refreshCategories));
+      this.setState({message: "Update Succesfull"});
     }
   }
 
@@ -67,7 +68,7 @@ class EditOperation extends React.Component {
       <>
       <div className="row">
         <div className="col-12">
-          <h1 className="text-align-center">Edit operation</h1>
+          <h1 className="content-title">Edit operation</h1>
         </div>
       </div>
       {
@@ -75,7 +76,7 @@ class EditOperation extends React.Component {
         errors.map(err => <div className="alert alert-danger" key={err.detail}>{err.detail}</div>)
       }
       <div className="row">
-        <div className="col-9 mx-auto">
+        <div className="col-9 mx-auto px-0">
         {
           opStatus === "FETCHING" ? <h2>Loading...</h2> :
           <>

@@ -2,6 +2,7 @@ import React from 'react';
 import OperationForm from 'components/forms/OperationForm';
 import { createOperation, fetchCategories } from 'actions';
 
+
 class CreateOperation extends React.Component {
 
   constructor(props) {
@@ -46,23 +47,24 @@ class CreateOperation extends React.Component {
 
     return (
       <>
+
       <div className="row">
         <div className="col-12">
-          <h1 className="text-align-center">Create new operation</h1>
+          <h1 className="content-title">Create new operation</h1>
         </div>
       </div>
       {
         errors.length > 0 &&
-        errors.map(err => <div className="alert alert-danger" key={err.detail}>{err.detail}</div>)
+        errors.map(err => <div className="alert alert-danger col-9 px-0 mx-auto" key={err.detail}>{err.detail}</div>)
       }
       {
         message !== "" &&
-        <div className="alert alert-success">
+        <div className="alert alert-success col-9 px-0 mx-auto">
           {message}
         </div> 
       }
       <div className="row">
-        <div className="col-9 mx-auto">
+        <div className="col-9 mx-auto  px-0">
           <OperationForm onSubmit={this.handleSubmit} 
           create={true}
           categories={categories}/>

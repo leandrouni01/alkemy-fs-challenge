@@ -23,7 +23,7 @@ const OperationForm = ({onSubmit, create, defaultValues, categories}) => {
   }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit(reset))}>
+    <form className="operation-form" onSubmit={handleSubmit(onSubmit(reset))}>
       <div className="form-group" >
         <label htmlFor="concept">Concept</label>
         <input
