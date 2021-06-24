@@ -6,9 +6,9 @@ import ExchangeableSelect from 'components/shared/ExchangeableSelect';
 import { requiredExchangeableSelect } from 'helpers/validators';
 
 
-const OperationForm = ({onSubmit, create}) => {
-
-  const { handleSubmit, register, formState: { errors }, getValues, reset } = useForm();
+const OperationForm = ({onSubmit, create, defaultValues}) => {
+  
+  const { handleSubmit, register, formState: { errors }, getValues, reset } = useForm({defaultValues});
   const [swapCategorySelect, setswapCategorySelect] = useState(false)
 
   const handleCategorySelectChange = (e) => {
@@ -57,6 +57,7 @@ const OperationForm = ({onSubmit, create}) => {
           className="form-control"
           id="amount"
           step="0.01"
+          min={0.01}
           {...register("amount",{
              required: "Amount is required",
              min: 0.01})} />
