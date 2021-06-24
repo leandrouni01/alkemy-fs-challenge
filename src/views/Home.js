@@ -51,7 +51,7 @@ class Home extends React.Component {
       <div className="row">
           <div className="col-12">
             <div className="row">
-              <div className="col-8 mx-auto">
+              <div className="col-md-8 col-sm-10  mx-auto">
                 <AccountingBalance className="mx-auto" operations={operations.operations}/>
               </div>
             </div>

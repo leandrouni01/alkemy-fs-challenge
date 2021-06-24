@@ -8,8 +8,8 @@ class OperationsTable extends React.Component {
     const { manage, operations, onRemove } = this.props;
 
     return (
-      <div className="table-responsive table-sm">
-        <table className="table table-bordered">
+      <div className="table-responsive ">
+        <table className="table table-bordered table-sm operation-table">
           <thead>
             <tr>
               <th>Concept</th>
@@ -30,8 +30,8 @@ class OperationsTable extends React.Component {
                 <td>{op.type}</td>
                 {manage &&
                   <td>
-                    <button onClick={onRemove(op.id)}>Delete</button>
-                    <Link to={`/operations/${op.id}/edit`}>Edit</Link>
+                    <button className="btn btn-sm btn-danger" onClick={onRemove(op.id)}>Delete</button>
+                    <Link className="btn btn-sm btn-info"to={`/operations/${op.id}/edit`}>Edit</Link>
                   </td>
                 }
               </tr>)

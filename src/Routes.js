@@ -12,7 +12,7 @@ import EditOperation from 'views/EditOperation';
 
 const Routes = () => {
   return (
-    <div className="container">
+    <div className="container pb-container">
       <Switch>
         <Route exact path="/">
           <Home />
