@@ -9,11 +9,12 @@ import { capitalize } from 'helpers/functions';
 
 const OperationForm = ({onSubmit, create, defaultValues, categories}) => {
   
-  const { handleSubmit, register, formState: { errors }, getValues, reset } = useForm({defaultValues});
+  const { handleSubmit, register, formState: { errors }, getValues, reset, setValue } = useForm({defaultValues});
   const [swapCategorySelect, setswapCategorySelect] = useState(false);
 
   const handleCategorySelectChange = (e) => {
     if(e.target.value === "other") {
+      setValue("category", "");
       setswapCategorySelect(true);
     }
   }
