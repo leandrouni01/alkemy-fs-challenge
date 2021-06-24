@@ -4,12 +4,13 @@ import { ErrorMessage } from '@hookform/error-message';
 import Error from 'components/shared/FormError';
 import ExchangeableSelect from 'components/shared/ExchangeableSelect';
 import { requiredExchangeableSelect } from 'helpers/validators';
+import { capitalize } from 'helpers/functions';
 
 
-const OperationForm = ({onSubmit, create, defaultValues}) => {
+const OperationForm = ({onSubmit, create, defaultValues, categories}) => {
   
   const { handleSubmit, register, formState: { errors }, getValues, reset } = useForm({defaultValues});
-  const [swapCategorySelect, setswapCategorySelect] = useState(false)
+  const [swapCategorySelect, setswapCategorySelect] = useState(false);
 
   const handleCategorySelectChange = (e) => {
     if(e.target.value === "other") {
@@ -79,7 +80,7 @@ const OperationForm = ({onSubmit, create, defaultValues}) => {
       <div className="form-group">
         <label htmlFor="category">Category</label>
         <ExchangeableSelect 
-        selectOptions={[{value: "naranja", description: "Naranja"}]}
+        selectOptions={categories.map(c => ({ value:c.category, description: capitalize(c.category)}))}
         name="category"
         id="category"
         type="text"
