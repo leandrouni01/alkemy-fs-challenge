@@ -8,6 +8,7 @@ import AuthRoute from 'components/auth/AuthRoute';
 import GuestRoute from 'components/auth/GuestRoute';
 import ManageOperations from 'views/ManageOperations';
 import CreateOperation from 'views/CreateOperation';
+import EditOperation from 'views/EditOperation';
 
 const Routes = () => {
   return (
@@ -24,6 +25,9 @@ const Routes = () => {
         </GuestRoute>
         <AuthRoute path="/operations/create">
           <CreateOperation />
+        </AuthRoute>
+        <AuthRoute path="/operations/:id/edit">
+          <EditOperation />
         </AuthRoute>
         <AuthRoute path="/operations">
           <ManageOperations />
