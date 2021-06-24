@@ -1,6 +1,5 @@
 import React from "react";
 import RegisterForm from "components/forms/RegisterForm";
-import { Redirect } from 'react-router-dom';
 import { registerUser } from 'actions';
 import { withAuth } from 'providers/AuthProvider';
 
@@ -9,7 +8,6 @@ class Register extends React.Component {
   constructor(props){
     super(props);
     this.state = {
-      shouldRedirect: false,
       errors: []
     }
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -21,7 +19,7 @@ class Register extends React.Component {
       return this.props.auth.signIn(res.data.token);
     })
     .then(_=> {
-      this.setState({shouldRedirect: true});
+      
     })
     .catch(err => {
       this.setState({errors: err});
@@ -30,11 +28,8 @@ class Register extends React.Component {
 
   render() {
 
-    const { errors, shouldRedirect } = this.state;
+    const { errors } = this.state;
 
-    if(shouldRedirect){
-      return <Redirect to={{pathname: '/'}} />
-    }
 
     return (
       <div className="pb-form">
