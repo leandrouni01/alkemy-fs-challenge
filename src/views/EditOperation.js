@@ -3,7 +3,7 @@ import { editOperation, fetchOperationById } from 'actions';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import { Redirect } from 'react-router';
-import { verifyOperationOwner } from 'actions';
+import { verifyOperationOwner, fetchCategories } from 'actions';
 import OperationForm from 'components/forms/OperationForm';
 
 
@@ -31,23 +31,38 @@ class EditOperation extends React.Component {
   constructor(props) {
     super(props);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.refreshCategories = this.refreshCategories.bind(this);
+    this.state = {
+      message: "",
+      categories: []
+    }
   }
 
   componentDidMount() {
     const { id } = this.props.match.params;
     this.props.dispatch(fetchOperationById(id));
+    this.refreshCategories();
   }
+
+  refreshCategories() {
+    fetchCategories()
+    .then((res) => {
+      this.setState({categories: res});
+    })
+  }
+
 
   handleSubmit() {
     return (operationData) => {
       const { id } = this.props.match.params;
-      this.props.dispatch(editOperation({...operationData, id}));
+      this.props.dispatch(editOperation({...operationData, id}, this.refreshCategories));
     }
   }
 
   render() {
 
     const {errors, operation, opStatus} = this.props.operation;
+    const { categories, message } = this.state;
     return (
       <>
       <div className="row">
@@ -63,9 +78,13 @@ class EditOperation extends React.Component {
         <div className="col-9 mx-auto">
         {
           opStatus === "FETCHING" ? <h2>Loading...</h2> :
+          <>
+          {message.length > 0 && errors.length <= 0 && <div className="alert alert-success">{message}</div>}
           <OperationForm onSubmit={this.handleSubmit} 
           create={false}
-          defaultValues={operation}/>
+          defaultValues={operation}
+          categories={categories}/>
+          </>
         }
         </div>
       </div>

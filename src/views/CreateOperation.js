@@ -1,6 +1,6 @@
 import React from 'react';
 import OperationForm from 'components/forms/OperationForm';
-import { createOperation } from 'actions';
+import { createOperation, fetchCategories } from 'actions';
 
 class CreateOperation extends React.Component {
 
@@ -8,9 +8,21 @@ class CreateOperation extends React.Component {
     super(props);
     this.state = {
       errors: [],
-      message: ""
+      message: "",
+      categories: []
     }
     this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  componentDidMount() {
+    this.refreshCategories();
+  }
+
+  refreshCategories() {
+    fetchCategories()
+    .then((res) => {
+      this.setState({categories: res});
+    })
   }
 
   handleSubmit(reset) {
@@ -18,7 +30,8 @@ class CreateOperation extends React.Component {
       createOperation(operationData)
       .then(_=>{
         reset();
-        this.setState({errors: [], message: "Operation created!"})
+        this.refreshCategories();
+        this.setState({errors: [], message: "Operation created!"});
       })
       .catch((err) => {
         this.setState({errors: err, message: ""});
@@ -29,7 +42,7 @@ class CreateOperation extends React.Component {
 
   render() {
 
-    const {errors, message} = this.state;
+    const {errors, message, categories} = this.state;
 
     return (
       <>
@@ -51,7 +64,8 @@ class CreateOperation extends React.Component {
       <div className="row">
         <div className="col-9 mx-auto">
           <OperationForm onSubmit={this.handleSubmit} 
-          create={true}/>
+          create={true}
+          categories={categories}/>
         </div>
       </div>
       </>
