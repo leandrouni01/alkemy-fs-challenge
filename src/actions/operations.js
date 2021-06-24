@@ -66,3 +66,13 @@ export const verifyOperationOwner = id => {
     return Promise.reject(extractApiErrors(error));
   })
 }
+
+export const fetchCategories = _=> {
+  return pbAxios.get('/categories')
+  .then((res) => {
+    return res.data;
+  })
+  .catch((error) => {
+    return Promise.reject(extractApiErrors(error));
+  })
+}
