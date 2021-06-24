@@ -51,3 +51,12 @@ export const fetchOperationById = id => dispatch =>{
   })
 }
 
+export const verifyOperationOwner = id => {
+  return pbAxios.get('/operations/' + id + "/verify")
+  .then((res) => {
+    return res;
+  })
+  .catch((error) => {
+    return Promise.reject(extractApiErrors(error));
+  })
+}
