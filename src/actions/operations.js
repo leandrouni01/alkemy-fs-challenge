@@ -40,3 +40,14 @@ export const editOperation = operationData => dispatch => {
   })
 }
 
+export const fetchOperationById = id => dispatch =>{
+  dispatch({type: "REQUEST_OPERATION"})
+  return pbAxios.get('/operations/' + id)
+  .then((res) => {
+    dispatch({type: "REQUEST_OPERATION_COMPLETE", item: res.data[0]});
+  })
+  .catch((error) => {
+    dispatch({type: "ERROR_OCURRED",errors: extractApiErrors(error)});
+  })
+}
+
