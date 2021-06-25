@@ -4,7 +4,7 @@ import { ErrorMessage } from '@hookform/error-message';
 import Error from 'components/shared/FormError';
 import ExchangeableSelect from 'components/shared/ExchangeableSelect';
 import { requiredExchangeableSelect } from 'helpers/validators';
-import { capitalize } from 'helpers/functions';
+import { capitalize, getCurrentDate } from 'helpers/functions';
 
 
 const OperationForm = ({onSubmit, create, defaultValues, categories}) => {
@@ -73,6 +73,7 @@ const OperationForm = ({onSubmit, create, defaultValues, categories}) => {
           type="date"
           className="form-control"
           id="date"
+          max={getCurrentDate()}
           {...register("date",{ required: "Date is required" })} />
         <ErrorMessage as={<Error />} name="date" errors={errors}>
           {message => <p> {message} </p>}
