@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { fetchOperations, deleteOperation } from 'actions';
 import OperationsTable from 'components/tables/OperationsTable';
 import ConfirmationModal from 'components/shared/ConfirmationModal';
+import SearchBar from 'components/shared/ShearchBar';
 
 class ManageOperations extends React.Component {
 
@@ -11,11 +12,13 @@ class ManageOperations extends React.Component {
     super(props);
     this.state = {
       showModal: false,
-      deleteId: 0
+      deleteId: 0,
+      search: ""
     }
     this.showConfirmationModal = this.showConfirmationModal.bind(this);
     this.handleConfirmedDelete = this.handleConfirmedDelete.bind(this);
     this.handleCancel = this.handleCancel.bind(this);
+    this.handleSearchChange = this.handleSearchChange.bind(this);
   }
 
   componentDidMount() {
@@ -37,9 +40,13 @@ class ManageOperations extends React.Component {
     this.setState({showModal: false, deleteId: 0});
   }
 
+  handleSearchChange(e) {
+    this.setState({search: e.target.value});
+  }
+
   render() {
     const { operations } = this.props;
-    const { showModal } = this.state;
+    const { showModal, search } = this.state;
 
     return (
       <>
@@ -50,13 +57,18 @@ class ManageOperations extends React.Component {
           </div>
         </div>
         <div className="row">
+          <div className="col-9 my-1 mx-auto">
+            <SearchBar placeholder="Category" onChange={this.handleSearchChange}/>
+          </div>
+        </div>
+        <div className="row">
           <div className="col-12">
             {
               operations.opStatus === "ERROR" && operations.errors.map(err => <div className="alert alert-danger" key={err.detail}>{err.detail}</div>)
             }
             {
               operations.opStatus === "FETCHING" ? <h1>Loading...</h1> :
-              <OperationsTable operations={operations.operations} manage={true} onRemove={this.showConfirmationModal}/>
+              <OperationsTable operations={operations.operations.filter((op) => search === "" || op.category.match(new RegExp(`^${search}`,"i")))} manage={true} onRemove={this.showConfirmationModal}/>
             }
           </div>
         </div>
