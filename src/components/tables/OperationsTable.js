@@ -31,8 +31,11 @@ class OperationsTable extends React.Component {
                 <td>{op.type}</td>
                 {manage &&
                   <td>
-                    <button className="btn btn-sm btn-danger" onClick={onRemove(op.id)}>Delete</button>
-                    <Link className="btn btn-sm btn-info"to={`/operations/${op.id}/edit`}>Edit</Link>
+                    <button className="btn btn-sm btn-danger" onClick={onRemove(op.id)}>
+                    <i className="bi bi-trash-fill"></i>
+                    Delete</button>
+                    <Link className="btn btn-sm btn-info"to={`/operations/${op.id}/edit`}>
+                    <i className="bi bi-pencil-fill"></i> Edit</Link>
                   </td>
                 }
               </tr>)

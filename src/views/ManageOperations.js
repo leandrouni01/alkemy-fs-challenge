@@ -53,7 +53,8 @@ class ManageOperations extends React.Component {
         <div className="row">
           <h1 className="col-md-8 col-sm-6 content-title">Manage Operations</h1>
           <div className="col-md-4 col-sm-6 my-1 text-center">
-            <Link to="/operations/create" className="btn btn-lg btn-create">New Operation</Link>
+            <Link to="/operations/create" className="btn btn-lg btn-create">
+            <i className="bi bi-plus"></i>New Operation</Link>
           </div>
         </div>
         <div className="row">
