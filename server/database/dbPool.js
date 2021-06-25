@@ -6,7 +6,7 @@ const {
   DB_USER,
   DB_PASSWORD,
   DB_DATABASE 
-} = require('../config/dev');
+} = require('../config');
 //exported instance of createpool so it works as a singleton due to module caching of node.js
 module.exports = mysql.createPool({
   connectionLimit: DB_POOL_LIMIT,

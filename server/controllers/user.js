@@ -3,7 +3,7 @@ const dbOperations = require('../database/dbOperations');
 
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-const config = require('../config/dev');
+const config = require('../config');
 
 
 module.exports.login = (req, res) => {
